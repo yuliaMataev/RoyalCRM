@@ -1,17 +1,20 @@
-const products = [];
-function addProduct() {
-  const name = process.argv.slice(2);
+module.exports = {
+  products: [],
 
-  if (!name || name.length === 0) {
-    throw "ERRPR: name is empty";
-  }
-  orders.push({
-    name: name,
-    id: products.length,
-  });
+  addProduct: function () {
+    const name = process.argv.slice(2);
 
-  products.forEach((product) => {
-    console.log(`ok.name: ${product.name} was created.`);
-  });
-}
-addProduct();
+    if (!name || name.length === 0) {
+      throw "ERRPR: name is empty";
+    }
+    orders.push({
+      name: name,
+      id: this.products.length,
+    });
+  },
+  productsList: function () {
+    this.products.forEach((product) => {
+      console.log(`ok.name: ${product.name} was created.`);
+    });
+  },
+};
