@@ -5,7 +5,7 @@ module.exports = {
     const name = process.argv.slice(2);
 
     if (!name || name.length === 0) {
-      throw "ERRPR: name is empty";
+      throw "ERROR: name is empty";
     }
     orders.push({
       name: name,

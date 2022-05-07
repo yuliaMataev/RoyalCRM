@@ -8,3 +8,7 @@ c.addCustomer();
 c.Customerslist();
 
 p.addProduct();
+p.productsList();
+
+o.addOrder();
+o.OrderList();
