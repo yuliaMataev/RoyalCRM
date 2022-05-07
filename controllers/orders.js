@@ -1,19 +1,22 @@
-module.export = {
+module.exports = {
   orders: [],
+
   addOrder: function () {
     const name = process.argv.slice(2);
 
     if (!name || name.length === 0) {
       throw "ERROR: name is empty";
     }
-    this.list.push({
+
+    this.orders.push({
       name: name,
-      id: products.length,
+      id: this.orders.length,
     });
   },
-  orderList: function () {
-    this.list.forEach((order) => {
-      console.log(`ok.name: ${orders.name} was created.`);
+
+  ordersList: function () {
+    this.orders.forEach((order) => {
+      console.log(`ok. name: ${orders.name} was created.`);
     });
   },
 };
