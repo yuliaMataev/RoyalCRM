@@ -4,13 +4,19 @@ const config = require("../config/dev");
 const pool = mysql.createPool({
   host: config.DB_HOST,
   user: config.DB_USER,
-  //password: config.DB_PASSWORD,
+  password: config.DB_PASSWORD,
   database: config.DB_NAME,
   waitForConnections: true,
   connectionLimit: 5,
   queueLimit: 0,
 });
+async function query(sql) {
+  const PromisePool = pool.promise();
+  const [rows, fields] = await PromisePool.query(sql);
+}
 
 module.exports = {
   pool,
+  getConnection,
+  runQuery,
 };
