@@ -10,13 +10,12 @@ const pool = mysql.createPool({
   connectionLimit: 5,
   queueLimit: 0,
 });
-async function query(sql) {
-  const PromisePool = pool.promise();
-  const [rows, fields] = await PromisePool.query(sql);
+
+async function query(sql, values) {
+  const promisePool = pool.promise();
+  return ([rows, fields] = await promisePool.query(sql, values));
 }
 
 module.exports = {
-  pool,
-  getConnection,
-  runQuery,
+  query,
 };
