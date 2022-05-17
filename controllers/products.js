@@ -1,62 +1,53 @@
 const database = require("./database");
 
 module.exports = {
-  // todo: update to use resent changes...
+  //products: [],
 
-  addProduct: async function (name, desc, price) {
-    //     if (!name || name.length === 0) {
-    //         throw ('ERROR: name is empty');
-    //     }
+  addProduct: async function (req, res, next) {
+    const qs = req.query;
+    const name = qs.name;
+    const description = qs.description;
+    const price = qs.price;
+    const image = qs.image;
 
-    //     database.pool.getConnection(function (connErr, connection) {
-    //         if (connErr) throw connErr; // not connected!
-
-    const sql =
-      "INSERT INTO products(name, description, price)" + " VALUES(?,?,?);";
-
-    //         connection.query(
-    //             sql,
-    //             [name, desc, price],
-    //             function (sqlErr, result, fields) {
-    //                 if (sqlErr) throw sqlErr;
-
-    //                 console.log(result);
-    //             });
-    //     });
-  },
-
-  productsList: async function (req, res, next) {
-    const sql = "SELECT * FROM products ORDER BY name ASC;";
+    if (!name || name.length === 0) throw "empty";
 
     try {
-      // const connection = await database.getConnection();
-      const result = await database.query(sql);
+      const result = await database.main(sql, [
+        name,
+        description,
+        price,
+        image,
+      ]);
       res.send(result[0]);
     } catch (err) {
       console.log(err);
     }
   },
 
-  // todo: search product by name
-  exportProducts: async function () {
+  productsList: async function (req, res) {
+    const sql = "SELECT * FROM products ORDER BY name ASC";
+
+    try {
+      const result = await database.main(sql);
+      res.send(result[0]);
+    } catch (err) {
+      console.log(err);
+    }
+  },
+
+  exportProducts: async function (req, res, next) {
     const sql =
-      "SELECT name,description,price FROM products ORDER BY name ASC;";
+      "SELECT name, description,price FROM products ORDER BY name ASC";
   },
+  deleteProduct: async function (req, res, next) {},
 
-  // todo: edit product details
-  editProduct: async function () {
-    // const sql = UPDATE
-  },
+  searchProducts: async function (req, res, next) {},
 
-  // todo: delete product
-  deleteProduct: async function () {
-    // const sql = DROP
-  },
+  //todo: sort products by column
+  //sql: SORT BY ASC/DESC
 
-  // todo: search product by name
-  searchProducts: async function () {
-    // const sql = SELECT WHERE...
-  },
-
-  // todo: sort products by name...
+  //todo: edit/update product
+  //sql = patch
+  editProducts: async function (req, res, next) {},
 };
